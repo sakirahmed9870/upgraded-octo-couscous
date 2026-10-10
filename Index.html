@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StudyForge</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: #f4f7fb;
+      color: #172033;
+    }
+
+    header {
+      background: #4f46e5;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+
+    header h1 {
+      font-size: 30px;
+    }
+
+    header p {
+      margin-top: 6px;
+      opacity: 0.9;
+    }
+
+    nav {
+      background: white;
+      padding: 12px;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    nav button {
+      border: none;
+      background: #eef0ff;
+      color: #4f46e5;
+      padding: 10px 16px;
+      margin: 4px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    nav button:hover {
+      background: #4f46e5;
+      color: white;
+    }
+
+    main {
+      max-width: 1000px;
+      margin: auto;
+      padding: 25px 15px;
+    }
+
+    .section {
+      display: none;
+    }
+
+    .section.active {
+      display: block;
+    }
+
+    .hero {
+      background: white;
+      padding: 30px;
+      border-radius: 16px;
+      text-align: center;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+      margin-bottom: 20px;
+    }
+
+    .hero h2 {
+      font-size: 28px;
+      color: #4f46e5;
+      margin-bottom: 10px;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 15px;
+    }
+
+    .card {
+      background: white;
+      padding: 22px;
+      border-radius: 14px;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.07);
+    }
+
+    .card h3 {
+      color: #4f46e5;
+      margin-bottom: 8px;
+    }
+
+    .form-box {
+      background: white;
+      padding: 25px;
+      border-radius: 14px;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.07);
+      margin-bottom: 20px;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 12px;
+      margin: 8px 0 14px;
+      border: 1px solid #ccd2df;
+      border-radius: 8px;
+      font-size: 15px;
+    }
+
+    textarea {
+      min-height: 180px;
+      resize: vertical;
+    }
+
+    .primary {
+      background: #4f46e5;
+      color: white;
+      border: none;
+      padding: 12px 18px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .secondary {
+      background: #e5e7eb;
+      color: #172033;
+      border: none;
+      padding: 12px 18px;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-left: 8px;
+    }
+
+    .note {
+      background: #fff;
+      border-left: 5px solid #4f46e5;
+      padding: 15px;
+      margin-top: 12px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+
+    .note h3 {
+      margin-bottom: 6px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 25px;
+      color: #687086;
+    }
+
+    @media print {
+      nav, .no-print, footer {
+        display: none;
+      }
+
+      body {
+        background: white;
+      }
+
+      .section {
+        display: block !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>📚 StudyForge</h1>
+  <p>Your simple student study workspace</p>
+</header>
+
+<nav>
+  <button onclick="showSection('dashboard')">Dashboard</button>
+  <button onclick="showSection('notes')">Notes</button>
+  <button onclick="showSection('projects')">Projects</button>
+  <button onclick="showSection('frontpage')">Front Page</button>
+</nav>
+
+<main>
+
+  <!-- DASHBOARD -->
+  <section id="dashboard" class="section active">
+
+    <div class="hero">
+      <h2>Welcome to StudyForge</h2>
+      <p>Organize your notes, projects and study work in one place.</p>
+    </div>
+
+    <div class="cards">
+
+      <div class="card">
+        <h3>📝 Notes</h3>
+        <p>Create and save your study notes directly in your browser.</p>
+      </div>
+
+      <div class="card">
+        <h3>📁 Projects</h3>
+        <p>Create project titles and descriptions for your school work.</p>
+      </div>
+
+      <div class="card">
+        <h3>📄 Front Page</h3>
+        <p>Prepare a simple project cover page.</p>
+      </div>
+
+      <div class="card">
+        <h3>🖨️ Print</h3>
+        <p>Print your project or save it as a PDF.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- NOTES -->
+  <section id="notes" class="section">
+
+    <div class="form-box">
+      <h2>📝 Create a Note</h2>
+
+      <input id="noteTitle" type="text" placeholder="Note title">
+
+      <textarea id="noteText" placeholder="Write your notes here..."></textarea>
+
+      <button class="primary" onclick="addNote()">Save Note</button>
+    </div>
+
+    <div id="notesList"></div>
+
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects" class="section">
+
+    <div class="form-box">
+      <h2>📁 Create Project</h2>
+
+      <input id="projectTitle" type="text" placeholder="Project title">
+
+      <textarea id="projectDescription"
+        placeholder="Write your project description..."></textarea>
+
+      <button class="primary" onclick="addProject()">Create Project</button>
+    </div>
+
+    <div id="projectsList"></div>
+
+  </section>
+
+  <!-- FRONT PAGE -->
+  <section id="frontpage" class="section">
+
+    <div class="form-box">
+
+      <h2>📄 Project Front Page</h2>
+
+      <input id="studentName" type="text" placeholder="Student name">
+
+      <input id="className" type="text" placeholder="Class">
+
+      <input id="rollNumber" type="text" placeholder="Roll number">
+
+      <input id="subjectName" type="text" placeholder="Subject">
+
+      <input id="projectName" type="text" placeholder="Project title">
+
+      <input id="schoolName" type="text" placeholder="School name">
+
+      <button class="primary" onclick="generateFrontPage()">
+        Generate Front Page
+      </button>
+
+      <button class="secondary" onclick="window.print()">
+        🖨️ Print / Save PDF
+      </button>
+
+    </div>
+
+    <div id="frontPageResult"></div>
+
+  </section>
+
+</main>
+
+<footer>
+  StudyForge • Student Study Workspace
+</footer>
+
+<script>
+
+  function showSection(sectionId) {
+
+    document.querySelectorAll(".section").forEach(function(section) {
+      section.classList.remove("active");
+    });
+
+    document.getElementById(sectionId).classList.add("active");
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+  }
+
+
+  // NOTES
+
+  let notes = JSON.parse(localStorage.getItem("studyforge_notes")) || [];
+
+  function addNote() {
+
+    const title = document.getElementById("noteTitle").value.trim();
+    const text = document.getElementById("noteText").value.trim();
+
+    if (!title || !text) {
+      alert("Please enter both a title and your note.");
+      return;
+    }
+
+    notes.push({
+      title: title,
+      text: text
+    });
+
+    localStorage.setItem("studyforge_notes", JSON.stringify(notes));
+
+    document.getElementById("noteTitle").value = "";
+    document.getElementById("noteText").value = "";
+
+    displayNotes();
+  }
+
+
+  function deleteNote(index) {
+
+    notes.splice(index, 1);
+
+    localStorage.setItem("studyforge_notes", JSON.stringify(notes));
+
+    displayNotes();
+  }
+
+
+  function displayNotes() {
+
+    const list = document.getElementById("notesList");
+
+    if (notes.length === 0) {
+      list.innerHTML = "<p>No notes yet. Create your first note above.</p>";
+      return;
+    }
+
+    list.innerHTML = "";
+
+    notes.forEach(function(note, index) {
+
+      const div = document.createElement("div");
+
+      div.className = "note";
+
+      div.innerHTML = `
+        <h3>${escapeHTML(note.title)}</h3>
+        <p>${escapeHTML(note.text).replace(/\n/g, "<br>")}</p>
+        <br>
+        <button class="secondary" onclick="deleteNote(${index})">
+          Delete
+        </button>
+      `;
+
+      list.appendChild(div);
+
+    });
+  }
+
+
+  // PROJECTS
+
+  let projects = JSON.parse(localStorage.getItem("studyforge_projects")) || [];
+
+  function addProject() {
+
+    const title = document.getElementById("projectTitle").value.trim();
+    const description =
+      document.getElementById("projectDescription").value.trim();
+
+    if (!title || !description) {
+      alert("Please enter a project title and description.");
+      return;
+    }
+
+    projects.push({
+      title: title,
+      description: description
+    });
+
+    localStorage.setItem(
+      "studyforge_projects",
+      JSON.stringify(projects)
+    );
+
+    document.getElementById("projectTitle").value = "";
+    document.getElementById("projectDescription").value = "";
+
+    displayProjects();
+  }
+
+
+  function deleteProject(index) {
+
+    projects.splice(index, 1);
+
+    localStorage.setItem(
+      "studyforge_projects",
+      JSON.stringify(projects)
+    );
+
+    displayProjects();
+  }
+
+
+  function displayProjects() {
+
+    const list = document.getElementById("projectsList");
+
+    if (projects.length === 0) {
+      list.innerHTML = "<p>No projects yet. Create your first project above.</p>";
+      return;
+    }
+
+    list.innerHTML = "";
+
+    projects.forEach(function(project, index) {
+
+      const div = document.createElement("div");
+
+      div.className = "note";
+
+      div.innerHTML = `
+        <h3>📁 ${escapeHTML(project.title)}</h3>
+        <p>${escapeHTML(project.description).replace(/\n/g, "<br>")}</p>
+        <br>
+        <button class="secondary" onclick="deleteProject(${index})">
+          Delete
+        </button>
+      `;
+
+      list.appendChild(div);
+
+    });
+  }
+
+
+  // FRONT PAGE
+
+  function generateFrontPage() {
+
+    const student =
+      document.getElementById("studentName").value || "Student Name";
+
+    const className =
+      document.getElementById("className").value || "Class";
+
+    const roll =
+      document.getElementById("rollNumber").value || "Roll Number";
+
+    const subject =
+      document.getElementById("subjectName").value || "Subject";
+
+    const project =
+      document.getElementById("projectName").value || "Project Title";
+
+    const school =
+      document.getElementById("schoolName").value || "School Name";
+
+
+    document.getElementById("frontPageResult").innerHTML = `
+
+      <div class="hero">
+
+        <h2>${escapeHTML(school)}</h2>
+
+        <br><br>
+
+        <h1>${escapeHTML(project)}</h1>
+
+        <br>
+
+        <h3>Subject: ${escapeHTML(subject)}</h3>
+
+        <br><br>
+
+        <p><strong>Submitted By</strong></p>
+
+        <p>${escapeHTML(student)}</p>
+
+        <p>Class: ${escapeHTML(className)}</p>
+
+        <p>Roll Number: ${escapeHTML(roll)}</p>
+
+      </div>
+
+    `;
+  }
+
+
+  // Basic protection when displaying user-entered text
+
+  function escapeHTML(text) {
+
+    return text
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+
+  }
+
+
+  // Load saved data
+
+  displayNotes();
+  displayProjects();
+
+</script>
+
+</body>
+  </html>
